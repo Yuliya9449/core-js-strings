@@ -4,7 +4,7 @@
  * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String   *
  *                                                                                           *
  ******************************************************************************************* */
-
+// ! 1
 /**
  * Returns the length of the given string.
  *
@@ -19,10 +19,12 @@
  *   getStringLength(null) => 0
  *   getStringLength(undefined) => 0
  */
-function getStringLength(/* value */) {
-  throw new Error('Not implemented');
+function getStringLength(value) {
+  // return value?.length || 0;
+  return typeof value === 'string' ? value.length : 0;
 }
 
+// ! 2
 /**
  * Returns true if the value is a string, otherwise returns false.
  *
@@ -37,10 +39,11 @@ function getStringLength(/* value */) {
  *   isString('test') => true
  *   isString(new String('test')) => true
  */
-function isString(/* value */) {
-  throw new Error('Not implemented');
+function isString(value) {
+  return typeof value === 'string' || value instanceof String;
 }
 
+// ! 3
 /**
  * Returns the result of concatenation of two strings.
  *
@@ -53,10 +56,11 @@ function isString(/* value */) {
  *   concatenateStrings('aa', '') => 'aa'.
  *   concatenateStrings('', 'bb') => 'bb'
  */
-function concatenateStrings(/* value1, value2 */) {
-  throw new Error('Not implemented');
+function concatenateStrings(value1, value2) {
+  return value1.concat(value2);
 }
 
+// ! 4
 /**
  * Returns the first character of the given string.
  *
@@ -68,10 +72,11 @@ function concatenateStrings(/* value1, value2 */) {
  *   getFirstChar('cat') => 'c'
  *   getFirstChar('') => ''
  */
-function getFirstChar(/* value */) {
-  throw new Error('Not implemented');
+function getFirstChar(value) {
+  return value.charAt(0);
 }
 
+// ! 5
 /**
  * Removes leading and trailing whitespace characters from the string.
  *
@@ -83,10 +88,11 @@ function getFirstChar(/* value */) {
  *   removeLeadingAndTrailingWhitespaces('cat ') => 'cat'
  *   removeLeadingAndTrailingWhitespaces('\t\t\tHello, World! ') => 'Hello, World!'
  */
-function removeLeadingAndTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingAndTrailingWhitespaces(value) {
+  return value.trim();
 }
 
+// ! 6
 /**
  * Removes only leading whitespace characters from the string.
  *
@@ -98,10 +104,11 @@ function removeLeadingAndTrailingWhitespaces(/* value */) {
  *   removeLeadingWhitespaces('cat ') => 'cat '
  *   removeLeadingWhitespaces('\t\t\tHello, World! ') => 'Hello, World! '
  */
-function removeLeadingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeLeadingWhitespaces(value) {
+  return value.trimStart();
 }
 
+// ! 7
 /**
  * Removes only trailing whitespace characters from the string.
  *
@@ -113,10 +120,11 @@ function removeLeadingWhitespaces(/* value */) {
  *   removeTrailingWhitespaces('cat ') => 'cat'
  *   removeTrailingWhitespaces('\t\t\tHello, World! ') => '\t\t\tHello, World!'
  */
-function removeTrailingWhitespaces(/* value */) {
-  throw new Error('Not implemented');
+function removeTrailingWhitespaces(value) {
+  return value.trimEnd();
 }
 
+// ! 8
 /**
  * Returns a string that is repeated the specified number of times.
  *
@@ -130,10 +138,11 @@ function removeTrailingWhitespaces(/* value */) {
  *   repeatString('', 3) => ''
  *   repeatString('abc', -2) => ''
  */
-function repeatString(/* str, times */) {
-  throw new Error('Not implemented');
+function repeatString(str, times) {
+  return times > 0 ? str.repeat(times) : 0;
 }
 
+// ! 9
 /**
  * Remove the first occurrence of a substring from a string.
  *
@@ -146,10 +155,18 @@ function repeatString(/* str, times */) {
  *   removeFirstOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeFirstOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeFirstOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeFirstOccurrences(str, value) {
+  // ! return str.replace(value, '');     правильное решение, но нужно использовать indexOf
+  if (str.indexOf(value) >= 0) {
+    return str
+      .slice(0, str.indexOf(value))
+      .concat(str.slice(str.indexOf(value) + value.length));
+  }
+
+  return str;
 }
 
+// ! 10
 /**
  * Remove the last occurrence of a substring from a string.
  *
@@ -162,10 +179,17 @@ function removeFirstOccurrences(/* str, value */) {
  *   removeLastOccurrences('I like legends', 'end') => 'I like legs'.
  *   removeLastOccurrences('ABABAB', 'BA') => 'ABAB'.
  */
-function removeLastOccurrences(/* str, value */) {
-  throw new Error('Not implemented');
+function removeLastOccurrences(str, value) {
+  if (str.lastIndexOf(value) >= 0) {
+    return str
+      .slice(0, str.lastIndexOf(value))
+      .concat(str.slice(str.lastIndexOf(value) + value.length));
+  }
+
+  return str;
 }
 
+// ! 11
 /**
  * Calculate the sum of character codes of the given string.
  *
@@ -178,10 +202,18 @@ function removeLastOccurrences(/* str, value */) {
  *   sumOfCodes('') => 0
  *   sumOfCodes() => 0
  */
-function sumOfCodes(/* str */) {
-  throw new Error('Not implemented');
+function sumOfCodes(str) {
+  let sum = 0;
+
+  if (!str) return 0;
+
+  for (let i = 0; i <= str.length - 1; i += 1) {
+    sum += str.charCodeAt(i);
+  }
+  return sum;
 }
 
+// ! 12
 /**
  * Checks if a string starts with a specific substring.
  *
@@ -193,10 +225,11 @@ function sumOfCodes(/* str */) {
  *   startsWith('Hello World', 'World') => false
  *   startsWith('Hello World', 'Hello') => true
  */
-function startsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function startsWith(str, substr) {
+  return str.startsWith(substr);
 }
 
+// ! 13
 /**
  * Checks if a string ends with a specific substring.
  *
@@ -208,10 +241,11 @@ function startsWith(/* str, substr */) {
  *   endsWith('Hello World', 'World') => true
  *   endsWith('Hello World', 'Hello') => false
  */
-function endsWith(/* str, substr */) {
-  throw new Error('Not implemented');
+function endsWith(str, substr) {
+  return str.endsWith(substr);
 }
 
+// ! 14
 /**
  * Returns a time string in the "mm:ss" format.
  *
@@ -225,10 +259,13 @@ function endsWith(/* str, substr */) {
  *   formatTime(0, 45) => "00:45"
  *   formatTime(0, 0) => "00:00"
  */
-function formatTime(/* minutes, seconds */) {
-  throw new Error('Not implemented');
+function formatTime(minutes, seconds) {
+  const mins = minutes <= 9 ? `${minutes}`.padStart(2, '0') : `${minutes}`;
+  const secs = seconds <= 9 ? `${seconds}`.padStart(2, '0') : `${seconds}`;
+  return `${mins}:${secs}`;
 }
 
+// ! 15
 /**
  * Returns a string in reverse order.
  *
@@ -239,10 +276,11 @@ function formatTime(/* minutes, seconds */) {
  *   reverseString('abcdef') => 'fedcba'
  *   reverseString('12345') => '54321'
  */
-function reverseString(/* str */) {
-  throw new Error('Not implemented');
+function reverseString(str) {
+  return str.split('').reverse().join('');
 }
 
+// ! 16
 /**
  * Returns a string with characters in alphabetical order.
  *
@@ -254,10 +292,11 @@ function reverseString(/* str */) {
  *   orderAlphabetically('textbook') => 'bekoottx'
  *   orderAlphabetically('abc123xyz') => '123abcxyz'
  */
-function orderAlphabetically(/* str */) {
-  throw new Error('Not implemented');
+function orderAlphabetically(str) {
+  return str.split('').sort().join('');
 }
 
+// ! 17
 /**
  * Checks if a given string contains a specified substring.
  *
@@ -270,10 +309,11 @@ function orderAlphabetically(/* str */) {
  *   containsSubstring('JavaScript is Fun', 'Python') => false
  *   containsSubstring('12345', '34') => true
  */
-function containsSubstring(/* str, substring */) {
-  throw new Error('Not implemented');
+function containsSubstring(str, substring) {
+  return str.includes(substring);
 }
 
+// ! 18
 /**
  * Returns the number of vowels in the string.
  * Vowels: 'a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'.
@@ -288,10 +328,13 @@ function containsSubstring(/* str, substring */) {
  *   countVowels('aEiOu') => 5
  *   countVowels('XYZ') => 1
  */
-function countVowels(/* str */) {
-  throw new Error('Not implemented');
+function countVowels(str) {
+  const vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'A', 'E', 'I', 'O', 'U', 'Y'];
+
+  return str.split('').filter((char) => vowels.includes(char)).length;
 }
 
+// ! 19
 /**
  * Returns true if the string is a palindrome; otherwise false.
  * https://en.wikipedia.org/wiki/Palindrome
@@ -305,10 +348,14 @@ function countVowels(/* str */) {
  *   isPalindrome('apple') => false
  *   isPalindrome('No lemon, no melon') => true
  */
-function isPalindrome(/* str */) {
-  throw new Error('Not implemented');
+function isPalindrome(str) {
+  const preparedString = str.replace(/[\s.,?!]/g, '').toLowerCase();
+  const reversedString = preparedString.split('').reverse().join('');
+
+  return preparedString === reversedString;
 }
 
+// ! 20
 /**
  * Find the longest word in the sentence. If there are multiple longest words,
  * the function returns the first one encountered.
@@ -321,10 +368,21 @@ function isPalindrome(/* str */) {
  *   findLongestWord('A long and winding road') => 'winding'
  *   findLongestWord('No words here') => 'words'
  */
-function findLongestWord(/* sentence */) {
-  throw new Error('Not implemented');
-}
+function findLongestWord(sentence) {
+  const arr = sentence.split(' ');
+  let longestWord = '';
 
+  arr.forEach((word) => {
+    if (word.length > longestWord.length) {
+      longestWord = word;
+    }
+  });
+
+  return longestWord;
+}
+// console.log(findLongestWord(''));
+
+// ! 21
 /**
  * Returns the string where each word is reversed.
  *
